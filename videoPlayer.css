@@ -17,7 +17,7 @@
   display: block;
   width: 100%;
   background: var(--vp-theme-bg, #0a0a0c);
-  border-radius: 12px;
+  border-radius: var(--radius-l);
   overflow: hidden;
   outline: none;
   font-family: 'DM Mono', 'Fira Mono', monospace;
@@ -40,7 +40,61 @@
   width: 100%;
   aspect-ratio: 16 / 9;
   background: #000;
-  overflow: hidden;
+  overflow: visible;
+}
+
+
+/* Title bar */
+.titlebar {
+  height: 50px;
+  width: 100%;
+  background: #ffffff45;
+  backdrop-filter: blur(20px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px;
+  color: #ccc;
+  font-size: 13px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  outline: #1f1f1f 2px solid;
+  z-index: 2;
+}
+
+/* ZONE GAUCHE (titre) */
+.title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1rem;
+}
+
+/* ZONE BOUTONS */
+.controls {
+  display: flex;
+}
+
+/* BOUTONS */
+.btn {
+  width: 45px;
+  height: 40px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor: default;
+  transition: 0.2s;
+  color:#ccc;
+}
+
+.btn:hover {
+  background: rgba(255,255,255,0.1);
+}
+
+.close:hover {
+  background: #e81123;
+  color: white;
 }
 
 /* ── Media ───────────────────────────────────────────────────────────────────── */

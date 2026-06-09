@@ -7,13 +7,7 @@ window.odometerOptions = {
   duration: 3000, // Change how long the javascript expects the CSS animation to take
 };
 
-window.addEventListener("load", () => {
-    const loadingScreen = document.querySelector(".loading-screen")
-    loadingScreen.classList.add("done")
-})
-
 document.addEventListener("DOMContentLoaded", () => {
-  
     // Number effect
 
     const observer = new IntersectionObserver(entries => {
@@ -42,7 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const vslPlayer = createVideoPlayer(document.getElementById("vsl"), {
         src: "https://youtu.be/PO-BS5-K4io?si=LlylM41QvZhSawks",
-        autoplay: false,
+        autoplay: true,
     })
 
     // Wrap every letter in a span
@@ -53,45 +47,6 @@ document.addEventListener("DOMContentLoaded", () => {
         );
     });
 
-        const carousel = document.getElementById("contenu-carousel");
-    console.log(carousel);
-    
-    document.querySelector(".contenu-left").addEventListener("click", () => {
-        console.log("left");
-        
-    carousel.scrollBy({
-        left: -400,
-        behavior: "smooth"
-    });
-    });
-
-    document.querySelector(".contenu-right").addEventListener("click", () => {
-        console.log("right");
-        
-    carousel.scrollBy({
-        left: 400,
-        behavior: "smooth"
-    });
-    });
-
-    const leftBtn = document.querySelector(".contenu-left");
-    const rightBtn = document.querySelector(".contenu-right");
-
-    function updateButtons() {
-        // Début
-        leftBtn.classList.toggle("hidden", carousel.scrollLeft <= 5)
-
-        // Fin
-        rightBtn.classList.toggle(
-            "hidden",
-            carousel.scrollLeft + carousel.clientWidth >= carousel.scrollWidth - 5
-        );
-    }
-
-    carousel.addEventListener("scroll", updateButtons);
-    window.addEventListener("resize", updateButtons);
-
-    updateButtons();
 
 
     const textObserver = new IntersectionObserver(entries => {
@@ -160,7 +115,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    gsap.utils.toArray(".timeline .card").forEach(card => {
+    gsap.utils.toArray(".card").forEach(card => {
 
     ScrollTrigger.create({
         trigger: card,
@@ -170,7 +125,7 @@ document.addEventListener("DOMContentLoaded", () => {
         gsap.fromTo(card,
             {
             scale: 0.9,
-            opacity: 0
+            opacity: 0.4
             },
             {
             scale: 1.05,
@@ -184,13 +139,22 @@ document.addEventListener("DOMContentLoaded", () => {
         onLeaveBack: () => {
         gsap.to(card, {
             scale: 0.9,
-            opacity: 0,
+            opacity: 0.4,
             duration: 0.3
         });
         }
     });
 
     });
+    gsap.fromTo(dot,
+    { scale: 1 },
+    {
+        scale: 2,
+        duration: 0.3,
+        yoyo: true,
+        repeat: 1
+    }
+    );
 
-    })
-})
+    });
+})    
