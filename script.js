@@ -76,15 +76,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const leftBtn = document.querySelector(".contenu-left");
     const rightBtn = document.querySelector(".contenu-right");
+    let carouselScrollOffset = 70
 
     function updateButtons() {
         // Début
-        leftBtn.classList.toggle("hidden", carousel.scrollLeft <= 5)
+        leftBtn.classList.toggle("hidden", carousel.scrollLeft <= carouselScrollOffset)
 
         // Fin
         rightBtn.classList.toggle(
             "hidden",
-            carousel.scrollLeft + carousel.clientWidth >= carousel.scrollWidth - 5
+            carousel.scrollLeft + carousel.clientWidth >= carousel.scrollWidth - carouselScrollOffset
         );
     }
 
@@ -136,7 +137,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     scrollTrigger: {
         trigger: ".timeline",
-        start: "top 60%",
+        start: "top 70%",
         end: "bottom center",
         scrub: true
     }
@@ -149,16 +150,20 @@ document.addEventListener("DOMContentLoaded", () => {
         ? -100
         : 100;
 
-    gsap.from(item, {
-        x: direction,
-        opacity: 0,
-        duration: 1,
+    if (window.scrollWidth > 600) {
 
-        scrollTrigger: {
-        trigger: item,
-        start: "top 60%"
-        }
-    });
+        gsap.from(item, {
+            x: direction,
+            opacity: 0,
+            duration: 1,
+
+            scrollTrigger: {
+            trigger: item,
+            start: "top 70%"
+            }
+        });
+
+    }
 
     gsap.utils.toArray(".timeline .card").forEach(card => {
 
@@ -193,4 +198,23 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     })
+
+    // Scroll animations
+
+    const scrollAnimObs = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                setTimeout(() => {
+                    entry.target.classList.add("show")                
+                }, entry.target.dataset.delay || 0);
+            }
+        })
+    }, {threshold: 0.8})
+
+    const scrollAnimEls = document.querySelectorAll(".scrollAnimate")
+    scrollAnimEls.forEach(element => {
+        scrollAnimObs.observe(element)
+    })
+
+    // Equipe effect 
 })

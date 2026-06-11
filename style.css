@@ -39,16 +39,27 @@
     /* Secteurs */
     --money: #20291f;
     --editing: #20033a;
-    --pub: #28231d;
+    --pub: #48443d;
     --organisation: #21171f;
     --branding: #112327;
 }
 
-.money {background: var(--money);}
-.editing {background-color: var(--editing);}
-.pub {background: var(--pub);}
-.organisation {background: var(--organisation);}
-.branding {background: var(--branding);}
+/* Scroll animations */
+
+.scrollAnimate {
+    opacity: 0;
+    transition: var(--transition);
+}
+
+.scrollAnimate.show {
+    opacity: 1;
+}
+
+.money {background: var(--bg-light);}
+.editing {background-color: var(--bg-light);}
+.pub {background: var(--bg-light);}
+.organisation {background: var(--bg-light);}
+.branding {background: var(--bg-light);}
 
 .primary,
 .primary * {
@@ -62,6 +73,7 @@
 .accent,
 .accent * {
     color: var(--accent);
+    display: inline;
 }
 
 .btn-primary {
@@ -88,10 +100,13 @@
     transform: translateZ(0);
 }
 
-.btn-primary:hover {
-    transform: translateY(-3px) scale(1.02);
-    box-shadow: 0 15px 35px rgba(41, 150, 167, 0.55);
+@media (hover: hover) {
+    .btn-primary:hover {
+        transform: translateY(-3px) scale(1.02);
+        box-shadow: 0 15px 35px rgba(41, 150, 167, 0.55);
+    }    
 }
+
 
 .btn-primary::before {
     content: "";
@@ -114,7 +129,7 @@
     width: 40%;
     height: 200%;
     background: rgba(255, 255, 255, 0.25);
-    transform: rotate(25deg);
+    transform: rotate(10deg);
     transition: all 0.6s ease;
 }
 
@@ -151,10 +166,13 @@
     transform-origin: left;
 }
 
-.btn-hollow:hover::after {
-    transform: scaleX(1);
-    filter: brightness(120%);
+@media (hover: hover) {
+    .btn-hollow:hover::after {
+        transform: scaleX(1);
+        filter: brightness(120%);
+    }    
 }
+
 
 html {
     box-sizing: border-box;
@@ -192,11 +210,10 @@ h1 {
 }
 
 h2 {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
     font-size: 1.8rem;
     margin: 4rem 0;
+    text-align: center;
+    white-space: normal;
 }
 
 h3 {
@@ -207,6 +224,7 @@ h3 {
 h4 {
     margin: 0;
 }
+
 
 section {
     margin-bottom: 40px;
@@ -241,6 +259,7 @@ section {
 
 .loading-screen img {
     width: 40%;
+    min-width: 150px;
 }
 
 .loading-screen p {
@@ -249,6 +268,11 @@ section {
 
 .loading-screen.done {
     transform: translateY(-120vh);
+}
+
+.loader-wrapper {
+    width: 48px;
+    height: 48px;
 }
 
 .loader {
@@ -310,9 +334,12 @@ nav {
   font-size: 0.95rem;
 }
 
-.nav-links a:hover {
-  color: white;
+@media (hover: hover) {
+    .nav-links a:hover {
+    color: white;
+    }    
 }
+
 
 /* Hero */
 
@@ -420,18 +447,19 @@ nav {
   position: relative;
   width: fit-content;
   height: fit-content;
-  display: flex;
+  display: inline;
   flex-direction: row;
+  vertical-align: middle;
 }
 
 .ml6 .text-wrapper {
   position: relative;
-  display: inline-block;
   overflow: hidden;
+  display: inline-block;
 }
 
 .ml6 .letter {
-  display: inline-block;
+    display: inline-block;
   opacity: 0;
 }
 
@@ -448,6 +476,10 @@ nav {
   max-width: 1200px;
   margin: auto;
   padding: 100px 0;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
 
 .timeline-line {
@@ -466,9 +498,13 @@ nav {
 
 .timeline-item {
   width: 50%;
+  min-width: 250px;
   padding: 40px;
   box-sizing: border-box;
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .timeline-item.left {
@@ -487,6 +523,7 @@ nav {
   padding: 40px;
   border-radius: var(--radius);
   border: 1px var(--border);
+  min-width: min(90%, 250px);
 }
 
 .timeline .card.active {
@@ -572,7 +609,7 @@ nav {
 }
 
 .contenu-carousel {
-    height: 400px;
+    min-height: 400px;
     width: 90vw;
     margin: 0;
     display: grid;
@@ -581,7 +618,7 @@ nav {
     scroll-behavior: smooth;
     scroll-snap-type: x mandatory;
     overflow: scroll;
-    gap: 80px;
+    gap: 20px;
     padding: 0 60px;
 }
 
@@ -595,11 +632,21 @@ nav {
     padding: 15px 20px;
     scroll-snap-align: center;
     transition: var(--transition);
+    scale: .95;
+    width: 90%;
+    color: var(--text-muted);
 }
 
-.contenu-carousel .card:hover {
-    transform: translateY(-10px);
+.contenu-carousel p, .contenu-carousel li {
+    color: var(--text-muted);
 }
+
+@media (hover: hover) {
+    .contenu-carousel .card:hover {
+        scale: 1;
+    }    
+}
+
 
 .carousel-btn {
   position: absolute;
@@ -619,15 +666,18 @@ nav {
   color: black;
   transition: var(--transition);
 
-  opacity: 1;
+  opacity: .4;
 
   background: var(--text);
 }
 
-.carousel-btn:hover {
-    transform: translateY(calc(-50% - 6px));
-    background-color: #fff;
+@media (hover: hover) {
+    .carousel-btn:hover {
+        transform: translateY(calc(-50% - 6px));
+        background-color: #fff;
+    }    
 }
+
 
 .carousel-btn svg {
     stroke: black;
@@ -654,6 +704,7 @@ nav {
     column-gap: 50px;
     row-gap: 30px;
     padding: 0 60px;
+    position: relative;
 }
 
 .equipe-card {
@@ -663,16 +714,41 @@ nav {
     border: 1px var(--border);
     text-decoration: none;
     transition: var(--transition);
+    position: relative;
+    animation: float 6s ease-in-out infinite;
 }
 
-.equipe-card:hover {
-    scale: 1.05;
+.equipe-card:nth-child(1) {animation-delay: 0ms;}
+.equipe-card:nth-child(2) {animation-delay: 200ms;}
+.equipe-card:nth-child(3) {animation-delay: 400ms;}
+.equipe-card:nth-child(4) {animation-delay: 600ms;}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(10px);
+    }
+    50% {
+        transform: translateY(0);
+    }
 }
 
-.equipe-card p {
-    display: flex;
-    text-align: left;
+@media (hover: hover) {
+    .equipe-card:hover {
+        scale: 1.05;
+    }    
+}
+
+
+.equipe-desc {
+    color: var(--text-muted);
+}
+
+.equipe-cta {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
     width: fit-content;
+    margin: 0;
 }
 
 footer {
@@ -828,11 +904,20 @@ footer * {
         font-size: 0.85rem;
     }
 
+    .contenu-carousel {
+        gap: 80px;
+    }
+
     .timeline-item {
-        margin-right: auto;
-        margin-left: auto;
+        margin-right: 0 !important;
+        margin-left: 0 !important;
+        width: 100%;
     }
     .timeline-dot {
         display: none;
+    }
+
+    .timeline-item .card {
+        padding: 20px;
     }
 }
