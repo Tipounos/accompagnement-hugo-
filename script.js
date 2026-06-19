@@ -12,7 +12,7 @@ window.addEventListener("load", () => {
     loadingScreen.classList.add("done")
 })
 
-document.addEventListener("DOMContentLoaded", () => {
+window.addEventListener("load", () => {
   
     // Number effect
 
@@ -201,6 +201,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Scroll animations
 
+    if (window.innerWidth < 900) {
+        document.querySelectorAll(".contenu-carousel-wrapper .card").forEach(card => {
+            card.dataset.delay = 100
+        })
+    }
+
     const scrollAnimObs = new IntersectionObserver(entries => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -216,5 +222,22 @@ document.addEventListener("DOMContentLoaded", () => {
         scrollAnimObs.observe(element)
     })
 
-    // Equipe effect 
+    document.querySelectorAll(".open-popup").forEach(btn => {
+        btn.addEventListener("click", (e) => {
+            document.getElementById(btn.dataset.target).classList.add("on")
+            console.log("on");
+            e.stopPropagation()
+            
+
+            document.addEventListener("click", () => {
+                document.querySelectorAll(".popup.on").forEach(popup => {
+                    popup.classList.remove("on")
+                    console.log("off");
+                    
+                })
+            },{once: true} )            
+        })
+    })
+
+
 })
