@@ -216,21 +216,7 @@ function createVideoPlayer(container, options = {}) {
     wrap.appendChild(titleEl);
   }
 
-  // Windows overlay
-  const windowsBar = document.createElement("div")
-  windowsBar.className = 'titlebar'
-  windowsBar.innerHTML = `
-    <div class="title">
-      Présentation d'EZ Editing
-    </div>
 
-    <div class="controls">
-      <div class="btn">—</div>
-      <div class="btn">□</div>
-      <div class="btn close">✕</div>
-    </div>
-  `    
-  wrap.appendChild(windowsBar)
 
   // ── Contrôles ─────────────────────────────────────────────────────────────
   let controlsEl = null;
